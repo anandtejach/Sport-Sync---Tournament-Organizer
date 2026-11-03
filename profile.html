@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Profile</title>
+<script>
+function logout() {
+  localStorage.removeItem("current");
+  location.href = "index.html";
+}
+</script>
+</head>
+<body bgcolor="lightyellow">
+
+<a href="index.html">Home</a>
+
+<center>
+<h1>Profile</h1>
+</center>
+
+<hr>
+
+<script>
+var cur = localStorage.getItem("current");
+var users = localStorage.getItem("users");
+var found = false;
+if (cur != null && users != null) {
+  var rows = users.split("|");
+  for (var i = 0; i < rows.length - 1; i++) {
+    var p = rows[i].split("~");
+    if (p[0] == cur) {
+      document.write("<table border='1' cellpadding='10' align='center'>");
+      document.write("<tr><td>ID</td><td>" + p[0] + "</td></tr>");
+      document.write("<tr><td>Name</td><td>" + p[1] + "</td></tr>");
+      document.write("<tr><td>Email</td><td>" + p[2] + "</td></tr>");
+      document.write("<tr><td>Phone</td><td>" + p[3] + "</td></tr>");
+      document.write("</table>");
+      found = true;
+    }
+  }
+}
+if (found == false) {
+  document.write("<p align='center'>Please login first.</p>");
+  document.write("<p align='center'><a href='login.html'>Go to Login</a></p>");
+}
+</script>
+
+<hr>
+
+<h3>Modules</h3>
+<a href="tournament.html">Tournaments</a><br>
+<a href="team.html">Teams</a><br>
+<a href="player.html">Players</a><br>
+<a href="match.html">Matches</a><br>
+<a href="score.html">Scores</a><br>
+<a href="rankings.html">Rankings</a><br>
+<a href="search.html">Search</a><br>
+
+<hr>
+
+<form>
+<input type="button" value="Logout" onclick="logout()">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>Tournaments</title>
+<script>
+function addTournament() {
+  var id = document.f.tid.value;
+  var name = document.f.tname.value;
+  var sport = document.f.tsport.value;
+  if (id == "" || name == "" || sport == "") {
+    return;
+  }
+  var old = localStorage.getItem("tournaments");
+  if (old == null) {
+    old = "";
+  }
+  localStorage.setItem("tournaments", old + id + "~" + name + "~" + sport + "|");
+  location.reload();
+}
+</script>
+</head>
+<body bgcolor="lightyellow">
+
+<a href="index.html">Home</a>
+
+<center>
+<h1>Tournaments</h1>
+</center>
+<hr>
+
+<h3>Add Tournament</h3>
+<form name="f">
+<table border="1" cellpadding="10">
+<tr>
+<td><label>Tournament ID</label></td>
+<td><input type="text" name="tid"></td>
+</tr>
+<tr>
+<td><label>Name</label></td>
+<td><input type="text" name="tname"></td>
+</tr>
+<tr>
+<td><label>Sport</label></td>
+<td><input type="text" name="tsport"></td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<input type="reset" value="Reset">
+<input type="button" value="Add" onclick="addTournament()">
+</td>
+</tr>
+</table>
+</form>
+
+<hr>
+
+<h3>All Tournaments</h3>
+<table border="1" cellpadding="10">
+<tr>
+<td>ID</td>
+<td>Name</td>
+<td>Sport</td>
+</tr>
+<script>
+var data = localStorage.getItem("tournaments");
+if (data != null) {
+  var rows = data.split("|");
+  for (var i = 0; i < rows.length - 1; i++) {
+    var p = rows[i].split("~");
+    document.write("<tr><td>" + p[0] + "</td><td>" + p[1] + "</td><td>" + p[2] + "</td></tr>");
+  }
+}
+</script>
+</table>
+
+</body>
+</html>

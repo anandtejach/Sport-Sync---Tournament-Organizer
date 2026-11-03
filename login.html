@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>Login</title>
+<script>
+function login() {
+  var id = document.f.lid.value;
+  var pass = document.f.lpass.value;
+  var users = localStorage.getItem("users");
+  if (users != null) {
+    var rows = users.split("|");
+    for (var i = 0; i < rows.length - 1; i++) {
+      var p = rows[i].split("~");
+      if (p[0] == id && p[4] == pass) {
+        localStorage.setItem("current", id);
+        location.href = "profile.html";
+        return;
+      }
+    }
+  }
+  document.f.msg.value = "Wrong ID or password";
+}
+</script>
+</head>
+<body bgcolor="lightyellow">
+
+<a href="index.html">Home</a>
+
+<center>
+<h1>Login</h1>
+</center>
+
+<hr>
+
+<form name="f">
+<table border="1" cellpadding="10" align="center">
+<tr>
+<td><label>ID</label></td>
+<td><input type="text" name="lid"></td>
+</tr>
+<tr>
+<td><label>Password</label></td>
+<td><input type="password" name="lpass"></td>
+</tr>
+<tr>
+<td><label>Message</label></td>
+<td><input type="text" name="msg" readonly></td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<input type="reset" value="Reset">
+<input type="button" value="Login" onclick="login()">
+</td>
+</tr>
+</table>
+</form>
+
+<p align="center">New user? <a href="registration.html">Register here</a></p>
+
+</body>
+</html>

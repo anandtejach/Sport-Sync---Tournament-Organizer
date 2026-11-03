@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>Registration</title>
+<script>
+function register() {
+  var id = document.f.rid.value;
+  var name = document.f.rname.value;
+  var email = document.f.remail.value;
+  var phone = document.f.rphone.value;
+  var pass = document.f.rpass.value;
+  if (id == "" || name == "" || email == "" || phone == "" || pass == "") {
+    document.f.msg.value = "Please fill all fields";
+    return;
+  }
+  var old = localStorage.getItem("users");
+  if (old == null) {
+    old = "";
+  }
+  var rows = old.split("|");
+  for (var i = 0; i < rows.length - 1; i++) {
+    var p = rows[i].split("~");
+    if (p[0] == id) {
+      document.f.msg.value = "This ID already exists";
+      return;
+    }
+  }
+  localStorage.setItem("users", old + id + "~" + name + "~" + email + "~" + phone + "~" + pass + "|");
+  location.href = "login.html";
+}
+</script>
+</head>
+<body bgcolor="lightyellow">
+
+<a href="index.html">Home</a>
+
+<center>
+<h1>Registration</h1>
+</center>
+
+<hr>
+
+<form name="f">
+<table border="1" cellpadding="10" align="center">
+<tr>
+<td><label>ID</label></td>
+<td><input type="text" name="rid"></td>
+</tr>
+<tr>
+<td><label>Name</label></td>
+<td><input type="text" name="rname"></td>
+</tr>
+<tr>
+<td><label>Email</label></td>
+<td><input type="text" name="remail"></td>
+</tr>
+<tr>
+<td><label>Phone</label></td>
+<td><input type="text" name="rphone"></td>
+</tr>
+<tr>
+<td><label>Password</label></td>
+<td><input type="password" name="rpass"></td>
+</tr>
+<tr>
+<td><label>Message</label></td>
+<td><input type="text" name="msg" readonly></td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<input type="reset" value="Reset">
+<input type="button" value="Register" onclick="register()">
+</td>
+</tr>
+</table>
+</form>
+
+</body>
+</html>
